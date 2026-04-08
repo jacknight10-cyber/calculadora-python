@@ -20,8 +20,8 @@ print ("multiplicacion:" , a * b)
 #resulatado y error y salida
 
 if c ==0:
- print ("division:no se puede dividie entre 0")
+    print ("division:no se puede dividie entre 0")
 else:
-    print ("division:" , a / b)
+    print ("divivion:", a / b)
 print ("fin de programa")
 

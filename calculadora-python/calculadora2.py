@@ -23,6 +23,7 @@ elif operacion == "-":
     c = a - b
     nombre = "resta"
 elif operacion == "*":
+    c = a * b
     nombre = "multiplicacion"
 elif operacion == "/":
     if b != 0:  
@@ -36,5 +37,5 @@ else:
 
 #salida
 
-print("el resultado es de", c)
+print("el resultado es de",c)
 print ("ESO FUE TODO ESPERO QUE LES HAYA GUSTADO")
