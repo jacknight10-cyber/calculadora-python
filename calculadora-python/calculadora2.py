@@ -37,4 +37,4 @@ else:
 #salida
 
 print("el resultado es de", c)
-print ("fin de programa")
+print ("ESO FUE TODO ESPERO QUE LES HAYA GUSTADO")
