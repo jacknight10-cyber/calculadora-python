@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Calculadora Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: #2d2d2d; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 90%; max-width: 400px; text-align: center; }
+        h1 { color: #4CAF50; margin-bottom: 20px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #3d3d3d; color: white; font-size: 16px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #45a049; }
+        .result-box { margin-top: 25px; padding: 15px; background: #383838; border-left: 5px solid #4CAF50; border-radius: 5px; text-align: left; }
+        .footer { margin-top: 20px; font-size: 0.8em; color: #888; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi Calculadora</h1>
+        <form method="POST">
+            <input type="number" name="num1" step="any" placeholder="Número a" required>
+            
+            <select name="operacion">
+                <option value="+">+. más</option>
+                <option value="-">-. menos</option>
+                <option value="*">*. por</option>
+                <option value="/">/. entre</option>
+                <option value="**">**. a la (potencia)</option>
+                <option value="%">%. resto</option>
+                <option value="//">//. módulo (div. entera)</option>
+            </select>
+
+            <input type="number" name="num2" step="any" placeholder="Número b" required>
+            
+            <button type="submit">CALCULAR</button>
+        </form>
+
+        {% if resultado %}
+        <div class="result-box">
+            <strong>{{ resultado.op }}:</strong> 
+            <span style="color: #4CAF50; font-size: 1.2em;">{{ resultado.res }}</span>
+        </div>
+        {% endif %}
+
+        <div class="footer">
+            Eso fue todo espero que les haya gustado
+        </div>
+    </div>
+</body>
+</html>
