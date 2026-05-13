@@ -11,10 +11,10 @@ for i in range (len(numbers)):
 
 #conidionales para evaluar el number_actual
 
-if number_actual >20 :
-    print (f"indice {i} :el numero {number_actual} mayor que 20")
-else :
-    print (f"indice {i} :el numero {number_actual} menor que 20")
+    if number_actual >20 :
+        print (f"indice {i} :el numero {number_actual} mayor que 20")
+    else :
+        print (f"indice {i} :el numero {number_actual} menor que 20")
 
 
 #3-logica del while
