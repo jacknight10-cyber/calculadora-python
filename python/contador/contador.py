@@ -2,7 +2,7 @@
 
 #1-defino mi lista
 
-numbers = [20, 23, 21, 20, 21, 22, 19, 19, 20, 21, 23, 20, 21, 22, 18]
+numbers = [20, 23, 23, 21, 20, 21, 22, 19, 19, 20, 21, 23, 20, 21, 22, 18]
 print("contando numeros")
 
 # uso de for para contar mi lista
