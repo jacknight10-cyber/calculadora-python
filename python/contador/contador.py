@@ -19,15 +19,15 @@ for i in range (len(numbers)):
 
 #3-logica del while
 
-print("\n Verificando estado de conexion")
+print("\n Verificando status")
 
 fuga = False
 status = "Blue"
 
 while fuga == False:
     if status == "Blue":
-        print("Resultado: Conectado exitosamente")
+        print("Resultado: exito")
         break 
     else:
-        print("Resultado: Error de sistema")
+        print("Resultado: Error")
          
