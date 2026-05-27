@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Contenido Extraído</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <div class="manage-container">
+        <header>
+            <h1>Editor de Contenido Extraído</h1>
+            <button class="btn-save" onclick="saveData()">Guardar Cambios</button>
+        </header>
+
+        <main class="workspace">
+            {% for bloque in lista_bloques %}
+            <div class="text-card" data-id="{{ loop.index }}">
+                <div class="card-header">
+                    <span>Bloque #{{ loop.index }}</span>
+                </div>
+                <div class="editable-content" contenteditable="true">{{ bloque }}</div>
+            </div>
+            {% endfor %}
+        </main>
+    </div>
+
+    <script>
+        function saveData() {
+            const cards = document.querySelectorAll('.text-card');
+            const updatedData = [];
+            cards.forEach(card => {
+                const id = card.getAttribute('data-id');
+                const content = card.querySelector('.editable-content').innerText;
+                updatedData.push({ id, content });
+            });
+            console.log("Datos para enviar:", updatedData);
+            alert("¡Cambios listos para enviar al backend!");
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNEFA - Editor de Asistencia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="manage-container">
+        <header class="editor-header">
+            <h1>Editor de Datos Extraídos</h1>
+            <p>Revise, edite o corrija los datos de la lista de asistencia antes de generar el reporte final.</p>
+        </header>
+
+        <div class="toolbar">
+            <input type="text" id="search-input" placeholder="🔍 Buscar por nombre, apellido o cédula...">
+        </div>
+
+        <main class="workspace" id="workspace">
+            {% for linea in lista_lineas %}
+            <div class="text-card" data-id="{{ loop.index }}">
+                <div class="card-header">Línea #{{ loop.index }}</div>
+                <div class="editable-content" contenteditable="true">{{ linea }}</div>
+            </div>
+            {% else %}
+            <div class="no-data">No se encontraron datos extraídos. Por favor, vuelva a subir el archivo.</div>
+            {% endfor %}
+        </main>
+
+        <div class="action-footer">
+            <a href="/" class="btn-cancel">❌ Cancelar</a>
+            <button type="button" class="btn-next" onclick="procesarYContinuar()">Continuar a Vista Final ➡️</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNEFA - Subir Asistencia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="upload-wrapper">
+        <div class="upload-card">
+            <h2>Sistema de Procesamiento de Asistencias</h2>
+            <p style="margin-bottom: 20px; color: #64748B;">Cargue la lista de asistencia en formato PDF para su ordenamiento técnico.</p>
+            
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="drop-zone" id="drop-zone">
+                    <p>Arrastra y suelta la lista aquí</p>
+                    <span>o haz clic para buscar el PDF en tu equipo</span>
+                    <input type="file" name="asistencia_pdf" class="file-input" accept=".pdf" required id="file-input">
+                </div>
+                
+                <div id="file-name" style="margin-top: 15px; font-weight: 600; color: var(--accent-teal);"></div>
+                
+                <button type="submit" class="btn-submit">Cargar y Procesar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>

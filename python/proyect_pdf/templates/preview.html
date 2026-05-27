@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNEFA - Vista Previa Final</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="manage-container">
+        <header class="editor-header" style="text-align: center; margin-bottom: 2.5rem;">
+            <h3 style="color: var(--accent-teal); margin-bottom: 0;">SISTEMA INSTITUCIONAL DE CONTROL</h3>
+            <h1>Vista Previa del Reporte Final</h1>
+            <p>Los datos han sido validados y estructurados alfabéticamente en el servidor.</p>
+        </header>
+
+        <main class="workspace" style="background-color: var(--card-bg); padding: 3rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+            <div style="border-bottom: 2px solid #F1F5F9; padding-bottom: 1rem; margin-bottom: 1.5rem; text-align: center; font-weight: 600; color: #64748B;">
+                UNIVERSIDAD NACIONAL EXPERIMENTAL POLITÉCNICA DE LA FUERZA ARMADA
+            </div>
+            
+            <ol style="line-height: 2; font-size: 1.1rem; color: var(--text-dark); padding-left: 1.5rem;">
+                {% for linea in lista_final %}
+                <li>{{ linea }}</li>
+                {% endfor %}
+            </ol>
+        </main>
+
+        <div class="action-footer">
+            <a href="/manage" class="btn-cancel" style="line-height: 2.3;">⬅️ Volver al Editor</a>
+            <a href="/download_pdf" class="btn-submit" style="text-decoration: none; max-width: 250px; margin-top: 0; text-align: center; line-height: 1.5;">📥 Descargar PDF Ordenado</a>
+        </div>
+    </div>
+
+</body>
+</html>
