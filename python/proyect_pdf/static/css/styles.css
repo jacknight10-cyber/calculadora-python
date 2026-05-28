@@ -1,4 +1,4 @@
-/* Configuración de colores y tipografía base */
+/* colores y tipografía  */
 :root {
     --bg-screen: #cbcde1;     /* Fondo general de la pantalla */
     --bg-main: #F8FAFC;       /* Gris muy claro para no cansar la vista */
@@ -16,7 +16,7 @@ body {
     padding: 0;
 }
 
-/* Contenedor centrado para la subida */
+/* Contenedor centrado */
 .upload-wrapper {
     display: flex;
     justify-content: center;
@@ -39,7 +39,7 @@ h2 {
     margin-bottom: 1.5rem;
 }
 
-/* Zona interactiva de arrastrar y soltar */
+/* arrastrar y soltar */
 .drop-zone {
     border: 2px dashed #ddcbe1;
     border-radius: 8px;
@@ -50,7 +50,7 @@ h2 {
     transition: all 0.3s ease;
 }
 
-/* Clase que se activará con JavaScript al pasar el mouse con un archivo */
+/* Clase que se activará con JavaScript */
 .drop-zone.drag-over {
     border-color: var(--accent-teal);
     background-color: #E2E8F0;
@@ -67,7 +67,7 @@ h2 {
     color: #88648b;
 }
 
-/* El input original se oculta pero sigue siendo funcional internamente */
+/* El input de archivo */
 .file-input {
     position: absolute;
     top: 0;
@@ -95,9 +95,7 @@ h2 {
 .btn-submit:hover {
     background-color: #5e0f76;
 }
-/* ==========================================
-   ESTILOS DE INTERFAZ 2 (MANAGE.HTML)
-   ========================================== */
+/* = */
 .manage-container {
     max-width: 800px; /* Ancho estándar de lectura para no cansar la vista */
     margin: 2rem auto;
@@ -151,7 +149,7 @@ h2 {
     transition: all 0.2s ease;
 }
 
-/* Efecto cuando el usuario hace clic para editar */
+/* clic para editar */
 .text-card:focus-within {
     box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
     border-left-color: var(--unefa-purple);
@@ -173,7 +171,7 @@ h2 {
     color: var(--text-dark);
 }
 
-/* Botones de control inferiores */
+/* Botones de abajo */
 .action-footer {
     display: flex;
     justify-content: space-between;

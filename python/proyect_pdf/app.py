@@ -17,7 +17,6 @@ if not os.path.exists(UPLOAD_FOLDER):
 def index():
     return render_template('upload.html')
 
-# Procesa el archivo y redirige a /manage
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'asistencia_pdf' not in request.files:
@@ -33,17 +32,14 @@ def upload_file():
         
         session['lineas_asistencia'] = extraer_texto(ruta_completa)
         
-        # 🚨 AQUÍ ES DONDE DABA EL ERROR: Busca la función 'manage' de abajo
         return redirect(url_for('manage'))
     return "Error: Formato no permitido.", 400
 
-# 2. Interfaz 2: Vista del editor (¡LA QUE FALTA O ESTÁ MAL ESCRITA!)
 @app.route('/manage')
 def manage():
     datos = session.get('lineas_asistencia', [])
     return render_template('manage.html', lista_lineas=datos)
 
-# Guarda los cambios editados y ejecuta el algoritmo de ordenamiento
 @app.route('/save_edited', methods=['POST'])
 def save_edited():
     datos_recibidos = request.get_json()
@@ -51,13 +47,11 @@ def save_edited():
     session['lineas_ordenadas'] = ordenar_asistencia(lineas_raw)
     return {"status": "success"}
 
-# 3. Interfaz 3: Vista previa final
 @app.route('/preview')
 def preview():
     datos_finales = session.get('lineas_ordenadas', [])
     return render_template('preview.html', lista_final=datos_finales)
 
-# Descarga del PDF definitivo
 @app.route('/download_pdf')
 def download_pdf():
     datos_finales = session.get('lineas_ordenadas', [])
