@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="interfaz-container">
+    <h2>Paso 3: Matriz de Asistencia Combinada</h2>
+    <p>Usa los recuadros de colores para cambiar el estado de asistencia y escribe observaciones en el campo de notas.</p>
+    <hr>
+
+    <form action="/guardar_interfaz3" method="POST">
+        <div class="tabla-responsiva">
+            <table class="tabla-asistencia tabla-matriz">
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        {% for fecha in fechas %}
+                        <th class="celda-centro th-fecha">{{ fecha }}</th>
+                        {% endfor %}
+                        <th class="celda-centro">% Asist.</th>
+                        <th class="celda-centro">% Inasist.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for est in estudiantes %}
+                    <tr>
+                        <td>
+                            <strong>{{ est.apellido }}, {{ est.nombre }}</strong>
+                            <br>
+                            <small class="text-mutado">CI: {{ est.cedula }}</small>
+                        </td>
+
+                        {% for fecha in fechas %}
+                        <td class="celda-centro">
+                            <div class="control-asistencia-box">
+                                <select 
+                                    name="estado_{{ est.cedula }}_{{ fecha }}" 
+                                    class="select-recuadro {% if est.fechas[fecha].estado == 'P' %}verde{% else %}rojo{% endif %}"
+                                    onchange="actualizarColorRecuadro(this)"
+                                    {% if est.cedula == '30693356' %}disabled{% endif %}>
+                                    <option value="P" {% if est.fechas[fecha].estado == 'P' %}selected{% endif %}>P</option>
+                                    <option value="A" {% if est.fechas[fecha].estado == 'A' %}selected{% endif %}>A</option>
+                                </select>
+                                
+                                <input 
+                                    type="text" 
+                                    name="nota_{{ est.cedula }}_{{ fecha }}" 
+                                    value="{{ est.fechas[fecha].nota }}" 
+                                    placeholder="Agregar nota..." 
+                                    class="input-nota"
+                                    {% if est.cedula == '30693356' %}disabled{% endif %}>
+                            </div>
+                        </td>
+                        {% endfor %}
+
+                        <td class="celda-centro estadistica-asist"><strong>{{ est.p_asistencia }}%</strong></td>
+                        <td class="celda-centro estadistica-inasist"><strong>{{ est.p_inasistencia }}%</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="botones-navegacion">
+            <a href="/modificar" class="btn btn-regresar">← Regresar a Interfaz 2</a>
+            <button type="submit" class="btn btn-secundario">Guardar Cambios y Ver Resumen Final →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

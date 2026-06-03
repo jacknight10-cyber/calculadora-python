@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="interfaz-container">
+    <h2>Paso 1: Carga de Listas de Asistencia</h2>
+    <hr>
+
+    <div class="card-carga">
+        <h3>1. Cargar Lista Base (Estudiantes Registrados)</h3>
+        <form action="/cargar_base" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="archivo_base" accept=".txt, .pdf" required>
+            </div>
+            <button type="submit" class="btn btn-primario">Subir Lista Base</button>
+        </form>
+        {% if datos_sistema['lista_base'] %}
+            <p class="status-success">✓ Lista base cargada con {{ datos_sistema['lista_base']|length }} estudiantes.</p>
+        {% endif %}
+    </div>
+
+    <div class="card-carga {% if not datos_sistema['lista_base'] %}deshabilitado{% endif %}">
+        <h3>2. Cargar Lista Diaria (Con Fecha)</h3>
+        <form action="/cargar_fecha" method="POST" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label for="fecha">Seleccionar Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required {% if not datos_sistema['lista_base'] %}disabled{% endif %}>
+            </div>
+            <div class="form-group">
+                <input type="file" name="archivo_asistencia" accept=".txt" required {% if not datos_sistema['lista_base'] %}disabled{% endif %}>
+            </div>
+            <button type="submit" class="btn btn-secundario" {% if not datos_sistema['lista_base'] %}disabled{% endif %}>Subir Lista Fechada</button>
+        </form>
+        
+        {% if datos_sistema['listas_fechadas'] %}
+            <h4>Fechas cargadas actualmente:</h4>
+            <ul>
+                {% for fecha in datos_sistema['listas_fechadas'].keys() %}
+                    <li>Fecha: <strong>{{ fecha }}</strong></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="acciones-finales">
+        <a href="/modificar" class="btn btn-procesar {% if not datos_sistema['listas_fechadas'] %}btn-disabled{% endif %}">Procesar y Continuar a Interfaz 2</a>
+    </div>
+</div>
+{% endblock %}

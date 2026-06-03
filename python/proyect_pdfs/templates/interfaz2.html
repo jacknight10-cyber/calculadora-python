@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="interfaz-container">
+    <h2>Paso 2: Buscador y Modificación de Datos</h2>
+    <p>Aquí puedes revisar la lista, buscar alumnos, corregir errores o añadir nuevos estudiantes manualmente.</p>
+    <hr>
+
+    <div class="acciones-tabla-container">
+        <div class="buscador-container">
+            <label for="txtBuscar">🔍 Buscar:</label>
+            <input type="text" id="txtBuscar" placeholder="Buscar por apellido, nombre o cédula..." onkeyup="filtrarEstudiantes()">
+        </div>
+        <button type="button" class="btn btn-agregar" onclick="agregarFilaEstudiante()">
+            ➕ Agregar Estudiante Manual
+        </button>
+    </div>
+
+    <form action="/guardar_interfaz2" method="POST">
+        <div class="tabla-responsiva">
+            <table class="tabla-asistencia" id="tablaEstudiantes">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    {% for estudiante in datos_sistema['lista_base'] %}
+                    <tr class="fila-estudiante">
+                        <td class="celda-centro número-orden"><strong>{{ loop.index }}</strong></td>
+                        <td>
+                            <input type="text" name="apellidos[]" value="{{ estudiante.apellido }}" required class="input-tabla">
+                        </td>
+                        <td>
+                            <input type="text" name="nombres[]" value="{{ estudiante.nombre }}" required class="input-tabla">
+                        </td>
+                        <td>
+                            <input type="hidden" name="cedulas_originales[]" value="{{ estudiante.cedula }}">
+                            <input type="text" name="cedulas[]" value="{{ estudiante.cedula }}" required class="input-tabla">
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr id="fila-vacia">
+                        <td colspan="4" class="celda-centro">No hay estudiantes. ¡Usa el botón de arriba para agregar uno nuevo!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="botones-navegacion">
+            <a href="/" class="btn btn-regresar">← Regresar a Interfaz 1</a>
+            <button type="submit" class="btn btn-guardar">
+                Guardar Modificaciones y Continuar →
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

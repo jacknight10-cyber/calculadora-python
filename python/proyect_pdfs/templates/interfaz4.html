@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="interfaz-container area-impresion">
+    <h2>Paso 4: Reporte Final de Inasistencias</h2>
+    <p class="no-imprimible">Vista previa consolidada del período. Solo se listan los días de ausencia de cada estudiante.</p>
+    <hr>
+
+    <div class="tabla-responsiva">
+        <table class="tabla-asistencia tabla-reporte">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Estudiante</th>
+                    <th>Fechas de Inasistencia</th>
+                    <th class="celda-centro">% Asist. Totales</th>
+                    <th class="celda-centro">% Inasist. Totales</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for est in estudiantes %}
+                <tr>
+                    <td class="celda-centro"><strong>{{ est.num }}</strong></td>
+                    <td>
+                        <span class="nombre-reporte">{{ est.apellido }}, {{ est.nombre }}</span>
+                        <br>
+                        <small class="text-mutado">CI: {{ est.cedula }}</small>
+                    </td>
+                    <td>
+                        {% if est.inasistencias %}
+                            <div class="contenedor-badges">
+                                {% for fecha in est.inasistencias %}
+                                    <span class="badge-fecha-roja">{{ fecha }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <span class="badge-perfecto">✓ Ninguna (Asistencia Perfecta)</span>
+                        {% endif %}
+                    </td>
+                    <td class="celda-centro estadistica-asist font-grande"><strong>{{ est.p_asistencia }}%</strong></td>
+                    <td class="celda-centro estadistica-inasist font-grande"><strong>{{ est.p_inasistencia }}%</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="botones-navegacion no-imprimible">
+        <a href="/comparar" class="btn btn-regresar">← Regresar a Matriz (Interfaz 3)</a>
+        <button type="button" class="btn btn-primario" onclick="window.print()">
+            🖨️ Imprimir / Guardar PDF
+        </button>
+    </div>
+</div>
+{% endblock %}
