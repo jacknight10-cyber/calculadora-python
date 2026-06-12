@@ -56,3 +56,16 @@ function actualizarColorRecuadro(selectElement) {
         selectElement.classList.add("rojo");
     }
 }
+// Función para cambiar el diseño de la zona de carga cuando se selecciona un archivo
+function actualizarInterfazArchivo(input, elementId) {
+    let boxPreview = document.getElementById(elementId);
+    if (input.files && input.files.length > 0) {
+        let nombreArchivo = input.files[0].name;
+        boxPreview.innerHTML = `📄 <strong>Archivo listo:</strong> ${nombreArchivo}`;
+        boxPreview.classList.add("archivo-cargado");
+    } else {
+        boxPreview.innerHTML = "Ningún archivo seleccionado";
+        boxPreview.classList.remove("archivo-cargado");
+    }
+}
+

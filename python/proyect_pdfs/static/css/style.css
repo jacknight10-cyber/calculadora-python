@@ -273,5 +273,226 @@ body {
         max-width: 100%;
     }
 }
+/* Paleta de Colores de la UNEFA y Estilos de Interfaz */
+:root {
+    --unefa-azul: #002855;
+    --unefa-oro: #D69F1D;
+    --gris-fondo: #f8f9fa;
+    --gris-borde: #e3e6ec;
+}
+
+.encabezado-seccion {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.encabezado-seccion h2 {
+    color: var(--unefa-azul);
+    font-size: 24px;
+}
+
+/* Caja de alertas */
+.alerta-info {
+    background-color: #e8f4fd;
+    border-left: 5px solid #2196F3;
+    color: #1d5480;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* Grid de distribución en 2 Columnas */
+.grid-cargas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Tarjetas Premium */
+.card-carga-premium {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--gris-borde);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-header-blue {
+    background-color: var(--unefa-azul);
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+}
+
+.card-header-blue h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Bloqueo visual elegante */
+.tarjeta-bloqueada {
+    background-color: #f1f2f5;
+    opacity: 0.7;
+}
+.text-bloqueo {
+    color: #c82333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Ocultar el Input file feo de los navegadores y crear zona custom */
+.upload-zone {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.upload-zone input[type="file"] {
+    display: none; /* Escondemos el botón por defecto */
+}
+
+.upload-label {
+    display: block;
+    background: #f1f5f9;
+    border: 2px dashed #b2c4d9;
+    padding: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.upload-label:hover {
+    background: #e2eaf2;
+    border-color: var(--unefa-azul);
+}
+
+.upload-icon {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.upload-text {
+    color: var(--unefa-azul);
+    font-weight: bold;
+}
+
+/* Caja de previsualización dinámica de archivo seleccionado */
+.preview-archivo-box {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #718096;
+    padding: 6px;
+    background: #fafafa;
+    border-radius: 4px;
+}
+
+.preview-archivo-box.archivo-cargado {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Nuevos Botones de Colores */
+.btn-unefa-azul {
+    background-color: var(--unefa-azul);
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-unefa-oro {
+    background-color: var(--unefa-oro);
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-unefa-azul:hover { background-color: #001f42; }
+.btn-unefa-oro:hover { background-color: #b58312; }
+
+/* Status Badges y Etiquetas de fechas */
+.status-badge.success {
+    margin-top: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.row-fecha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.row-fecha input[type="date"] {
+    padding: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+}
+
+.fechas-registradas {
+    margin-top: 15px;
+    border-top: 1px solid var(--gris-borde);
+    padding-top: 10px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-fecha {
+    background: #e2e8f0;
+    color: #334155;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Botón Final Continuar */
+.acciones-finales-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn-continuar {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 35px;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 6px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3);
+}
+
+.btn-deshabilitado-final {
+    background-color: #cbd5e1 !important;
+    color: #94a3b8 !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
 
 

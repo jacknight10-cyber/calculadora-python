@@ -1,48 +1,91 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="interfaz-container">
-    <h2>Paso 1: Carga de Listas de Asistencia</h2>
-    <hr>
-
-    <div class="card-carga">
-        <h3>1. Cargar Lista Base (Estudiantes Registrados)</h3>
-        <form action="/cargar_base" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <input type="file" name="archivo_base" accept=".txt, .pdf" required>
-            </div>
-            <button type="submit" class="btn btn-primario">Subir Lista Base</button>
-        </form>
-        {% if datos_sistema['lista_base'] %}
-            <p class="status-success">✓ Lista base cargada con {{ datos_sistema['lista_base']|length }} estudiantes.</p>
-        {% endif %}
+<div class="interfaz-container animated fadeIn">
+    <div class="encabezado-seccion">
+        <h2>Paso 1: Carga de Listas de Asistencia</h2>
+        <p>Por favor, sube la lista maestra de estudiantes y las listas diarias correspondientes en formato <strong>.txt</strong> o <strong>.pdf</strong>.</p>
+    </div>
+    
+    <!-- Alerta informativa de formato para guiar al usuario -->
+    <div class="alerta-info">
+        <strong>💡 Formato requerido dentro del archivo:</strong> `Número- Nombre Apellido Cédula` (Ej: 1- Jackson Teran 30693356)
     </div>
 
-    <div class="card-carga {% if not datos_sistema['lista_base'] %}deshabilitado{% endif %}">
-        <h3>2. Cargar Lista Diaria (Con Fecha)</h3>
-        <form action="/cargar_fecha" method="POST" enctype="multipart/form-data">
-            <div class="form-group row">
-                <label for="fecha">Seleccionar Fecha:</label>
-                <input type="date" id="fecha" name="fecha" required {% if not datos_sistema['lista_base'] %}disabled{% endif %}>
+    <div class="grid-cargas">
+        <!-- Tarjeta 1: Cargar Lista Base -->
+        <div class="card-carga-premium">
+            <div class="card-header-blue">
+                <h3>1. Lista Base Principal</h3>
             </div>
-            <div class="form-group">
-                <input type="file" name="archivo_asistencia" accept=".txt" required {% if not datos_sistema['lista_base'] %}disabled{% endif %}>
+            <div class="card-body">
+                <form action="/cargar_base" method="POST" enctype="multipart/form-data">
+                    <div class="upload-zone">
+                        <label for="archivo_base" class="upload-label">
+                            <span class="upload-icon">📁</span>
+                            <span class="upload-text">Seleccionar Lista Base</span>
+                        </label>
+                        <!-- Input oculto pero funcional -->
+                        <input type="file" id="archivo_base" name="archivo_base" accept=".txt, .pdf" required onchange="actualizarInterfazArchivo(this, 'preview-base')">
+                        <div id="preview-base" class="preview-archivo-box">Ningún archivo seleccionado</div>
+                    </div>
+                    <button type="submit" class="btn btn-unefa-azul">📤 Subir Lista Base</button>
+                </form>
+
+                {% if datos_sistema['lista_base'] %}
+                    <div class="status-badge success">
+                        ✓ Lista base cargada con {{ datos_sistema['lista_base']|length }} estudiantes.
+                    </div>
+                {% endif %}
             </div>
-            <button type="submit" class="btn btn-secundario" {% if not datos_sistema['lista_base'] %}disabled{% endif %}>Subir Lista Fechada</button>
-        </form>
-        
-        {% if datos_sistema['listas_fechadas'] %}
-            <h4>Fechas cargadas actualmente:</h4>
-            <ul>
-                {% for fecha in datos_sistema['listas_fechadas'].keys() %}
-                    <li>Fecha: <strong>{{ fecha }}</strong></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        </div>
+
+        <!-- Tarjeta 2: Cargar Listas Fechadas -->
+        <div class="card-carga-premium {% if not datos_sistema['lista_base'] %}tarjeta-bloqueada{% endif %}">
+            <div class="card-header-blue">
+                <h3>2. Registro de Asistencia Diaria</h3>
+            </div>
+            <div class="card-body">
+                {% if not datos_sistema['lista_base'] %}
+                    <p class="text-bloqueo">⚠️ Debes cargar la lista base primero para habilitar esta sección.</p>
+                {% endif %}
+                
+                <form action="/cargar_fecha" method="POST" enctype="multipart/form-data">
+                    <div class="form-group row-fecha">
+                        <label for="fecha"><strong>Fecha de la Clase:</strong></label>
+                        <input type="date" id="fecha" name="fecha" required {% if not datos_sistema['lista_base'] %}disabled{% endif %}>
+                    </div>
+
+                    <div class="upload-zone">
+                        <label for="archivo_asistencia" class="upload-label">
+                            <span class="upload-icon">📅</span>
+                            <span class="upload-text">Seleccionar Lista Diaria</span>
+                        </label>
+                        <input type="file" id="archivo_asistencia" name="archivo_asistencia" accept=".txt, .pdf" required {% if not datos_sistema['lista_base'] %}disabled{% endif %} onchange="actualizarInterfazArchivo(this, 'preview-fecha')">
+                        <div id="preview-fecha" class="preview-archivo-box">Ningún archivo seleccionado</div>
+                    </div>
+                    <button type="submit" class="btn btn-unefa-oro" {% if not datos_sistema['lista_base'] %}disabled{% endif %}>💾 Guardar Fecha</button>
+                </form>
+                
+                {% if datos_sistema['listas_fechadas'] %}
+                    <div class="fechas-registradas">
+                        <h4>Fechas en Sistema:</h4>
+                        <div class="tags-container">
+                            {% for fecha in datos_sistema['listas_fechadas'].keys() %}
+                                <span class="tag-fecha">📅 {{ fecha }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
-    <div class="acciones-finales">
-        <a href="/modificar" class="btn btn-procesar {% if not datos_sistema['listas_fechadas'] %}btn-disabled{% endif %}">Procesar y Continuar a Interfaz 2</a>
+    <!-- Sección de Acción Continuar -->
+    <div class="acciones-finales-container">
+        <a href="/modificar" class="btn btn-continuar {% if not datos_sistema['listas_fechadas'] %}btn-deshabilitado-final{% endif %}">
+            Procesar y Continuar a Interfaz 2 🚀
+        </a>
     </div>
 </div>
 {% endblock %}
